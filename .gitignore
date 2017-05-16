@@ -1,0 +1,12 @@
+DataDocking/
+Third party interface console/
+L8(IP Switch)/
+HA_CurrPorts(1.91)/
+*.exe
+version.txt
+*.docx
+*.doc
+*.~pas
+*.~dpr
+*.~dfm
+*.~ddp
