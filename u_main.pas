@@ -21,6 +21,15 @@ type
   end;
 
 type
+  TImageThread = class(TThread)
+  private
+    { Private declarations }
+  protected
+    procedure Execute;override;
+    procedure Run;
+  end;
+
+type
   TMainForm = class(TForm)
     PageControl1: TPageControl;
     TabSheet1: TTabSheet;
@@ -610,6 +619,7 @@ type
     BitBtn8: TBitBtn;
     pMenu_tree: TPopupMenu;
     tree_Del: TMenuItem;
+    AdoQryCardRecScreenshot: TBlobField;
     procedure FormCreate(Sender: TObject);
     procedure spBtn_addrClick(Sender: TObject);
     procedure spBtn_devClick(Sender: TObject);
@@ -843,6 +853,9 @@ type
     procedure btn_DevCLClick(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure tree_DelClick(Sender: TObject);
+    procedure DBGridCardRecDblClick(Sender: TObject);
+    procedure AdoQryCardRecScreenshotGetText(Sender: TField;
+      var Text: String; DisplayText: Boolean);
   private
     { Private declarations }
     function GetUserNO6(uStr: string): string;  //6位用户号
@@ -895,7 +908,7 @@ implementation
 
 {$R *.dfm}
 uses u_addr, u_dev, u_public, u_select15, u_userAdmin, login1, u_lang,
-  u_alarmqry, u_recqry, u_AppName, u_dock, u_phone, u_treedevice, u_validtime;
+  u_alarmqry, u_recqry, u_AppName, u_dock, u_phone, u_treedevice, u_validtime, u_screenshot;
 
 function TMainForm.Card_Insert(PersonName,CardNO,CardHex,unitMac,userMac,user6,WallNO,CardMemo:Variant;CardType,CardState:Variant):Boolean;
 begin
@@ -2360,6 +2373,9 @@ begin
   f_select15 := tf_select15.Create(nil);
   if f_select15.ShowModal = mrOK then
   begin
+    if ckbBatch0.Checked then
+      ExecSQL('update t_wall set WallNum=0 where WallNO='+QuotedStr(clb_Dev0.Items.Strings[clb_Dev0.ItemIndex]));
+
     f_select15.DBGrid1.DataSource.DataSet.First;
     while not f_select15.DBGrid1.DataSource.DataSet.EOF do
     begin
@@ -3651,6 +3667,9 @@ begin
       AdoQryCardRec.FieldByName('RecTime').AsString  := FormatDateTime('YYYY-MM-DD hh:mm',Now());
     AdoQryCardRec.Post;
     RefreshRec(AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+
+    AdoQryCardRec.First;
+    CurrentID:=AdoQryCardRec.FieldByName('ID').AsInteger;
 
     if (DataDocking='true') and (Get_RecCount('select * from master.dbo.sysdatabases where name='+QuotedStr('PoliceDataSystem'),AdoConDock)>0) then
     begin
@@ -6035,8 +6054,8 @@ procedure TMainForm.clb_Dev0ClickCheck(Sender: TObject);
 begin
   if clb_Dev0.Checked[clb_Dev0.ItemIndex]=true then
   begin
-    if ckbBatch0.Checked then
-      ExecSQL('update t_wall set WallNum=0 where WallNO='+QuotedStr(clb_Dev0.Items.Strings[clb_Dev0.ItemIndex]));
+    {if ckbBatch0.Checked then
+      ExecSQL('update t_wall set WallNum=0 where WallNO='+QuotedStr(clb_Dev0.Items.Strings[clb_Dev0.ItemIndex]));}
 
     ExecSQL('update t_wall set WallChosen=1 where WallNO='+QuotedStr(clb_Dev0.Items.Strings[clb_Dev0.ItemIndex]));
     RefreshRec(AdoQryWall,'select * from t_wall order by WallNO');
@@ -6897,7 +6916,6 @@ end;
 
 procedure TMainForm.TCPServerExecute(AThread: TIdPeerThread);
 begin
-  //RcvStream:=RcvStream+AThread.Connection.ReadChar;
   RcvString:=RcvString+IntToHex(Ord(AThread.Connection.ReadChar),2);
   TCPServer.Active:=true;
 end;
@@ -6932,18 +6950,12 @@ var
   LenInt,RcvLen:Integer;
   CmdStr,DataType:string;
   Confirm:byte;
-  SendStream:TMemoryStream;
+  SendStream,PacketData_stream:TmemoryStream;
   ImageBytes:array of byte;
   i:Integer;
+  ID:THandle;
+  ImageThread:TImageThread;
 begin
-  {if RcvStream<>'' then
-  begin
-    for i:=0 to Length(RcvStream) do
-    begin
-      RcvString:=RcvString+IntToHex(Ord(RcvStream[i]),2);
-    end;
-  end;}
-
   if RcvString='00' then
   begin
     RcvStream:='';
@@ -6965,7 +6977,7 @@ begin
       //Memo5.Lines.Add(RcvString);
       CmdStr:=RightStr(RcvString,2*(LenInt-10));
       CmdStr:=RightStr(CmdStr,2*(LenInt-10)-4);
-      //memo5.Lines.Append(CmdStr);
+      //Memo5.Lines.Append(CmdStr);
       mmRcvCmd.Lines.Append(CmdStr);
 
       RcvStream:='';
@@ -6988,7 +7000,16 @@ begin
 
       if Length(RcvString)=LenInt then
       begin
-        LenStr:=MidStr(RcvString,71,2)+MidStr(RcvString,69,2)+MidStr(RcvString,67,2)+MidStr(RcvString,65,2);
+        //Timer3.Enabled:=false;
+
+        Confirm:=$01;
+        
+        SendStream:=TMemoryStream.Create;
+        SendStream.Write(Confirm,1);
+        Connection.WriteStream(SendStream,true,false);
+        SendStream.Free;
+
+        {LenStr:=MidStr(RcvString,71,2)+MidStr(RcvString,69,2)+MidStr(RcvString,67,2)+MidStr(RcvString,65,2);
         LenInt:=StrToInt('$'+LenStr);
 
         RcvString:=RightStr(RcvString,2*LenInt);
@@ -6998,28 +7019,136 @@ begin
         for i:=0 to LenInt-1 do
         begin
           ImageBytes[i]:=byte(StrToInt('0x'+MidStr(RcvString,i*2+1,2)));
+          RcvStream:=RcvStream+Char(ImageBytes[i]);
         end;
 
-        //Move(ImageBytes[1],RcvStream[1],LenInt);
-        //ImageProcess(RcvStream);
+        ImageProcess(RcvStream);}
+
+        //Memo5.Lines.Add(RcvStream);
+
+        {PacketData_stream:=TMemoryStream.Create;
+        PacketData_stream.Write(ImageBytes,LenInt);
+        PacketData_stream.Position:=0;
+        PacketData_stream.SaveToFile('C:\Users\Suwy\Desktop\L8(IP转换器发卡)\screenshot.jpg');
+        PacketData_stream.Free;}
+
+        ImageThread:=TImageThread.Create(false);
+        ImageThread.Execute;
 
         RcvStream:='';
         RcvString:='';
-        
-        Confirm:=$01;
-      
-        SendStream:=TMemoryStream.Create;
-        SendStream.Write(Confirm,1);
-        Connection.WriteStream(SendStream,true,false);                                                                                                            
-        SendStream.Free;
+
+        Timer3.Enabled:=true;
       end;
     end;
   end;
-  {if RcvString<>'' then
+end;
+
+procedure TImageThread.Execute;
+begin
+  Run;
+end;
+
+procedure TImageThread.Run;
+var
+  i,j,LenInt,RecID,Times,Remain:Integer;
+  ImageStr,TmpStr,LenStr:string;
+  ImageBytes:array of byte;
+  Image:TFileStream;
+  PacketStream:TMemoryStream;
+begin
+  try
+  FreeOnTerminate:=true;
+
+  RecID:=CurrentID;
+  ImageStr:=RcvString;
+  RcvString:='';
+
+  LenStr:=MidStr(ImageStr,71,2)+MidStr(ImageStr,69,2)+MidStr(ImageStr,67,2)+MidStr(ImageStr,65,2);
+  LenInt:=StrToInt('$'+LenStr);
+
+  Times:=LenInt div 4096;
+  Remain:=LenInt mod 4096;
+
+  ImageStr:=RightStr(ImageStr,2*LenInt);
+
+  {SetLength(ImageBytes,LenInt);
+  PacketStream:=TMemoryStream.Create;
+  PacketStream.Position:=0;
+
+  for i:=0 to LenInt-1 do
   begin
-    Memo5.Lines.Add(RcvString);
-    RcvString:='';
+    Application.ProcessMessages;
+    ImageBytes[i]:=byte(StrToInt('0x'+MidStr(ImageStr,i*2+1,2)));
+    //RcvStream:=RcvStream+Char(ImageBytes[i]);
+    PacketStream.Write(ImageBytes[i],1);
+  end;
+
+  SetLength(ImageBytes,0);
+  ImageBytes:=nil;
+  //Finalize(ImageBytes);
+
+  PacketStream.Position:=0;}
+
+  SetLength(ImageBytes,4096);
+  PacketStream:=TMemoryStream.Create;
+  PacketStream.Position:=0;
+
+  for i:=1 to Times do
+  begin
+    TmpStr:=LeftStr(ImageStr,4096*2);
+    ImageStr:=MidStr(ImageStr,4096*2+1,2*(LenInt-4096));
+
+    for j:=0 to 4096-1 do
+    begin
+      Application.ProcessMessages;
+      ImageBytes[j]:=Byte(StrToInt('0x'+MidStr(TmpStr,j*2+1,2)));
+      PacketStream.Write(ImageBytes[j],1);
+    end;
+  end;
+
+  SetLength(ImageBytes,0);
+  SetLength(ImageBytes,Remain);
+
+  for j:=0 to Remain-1 do
+  begin
+    Application.ProcessMessages;
+    ImageBytes[j]:=Byte(StrToInt('0x'+MidStr(ImageStr,j*2+1,2)));
+    PacketStream.Write(ImageBytes[j],1);
+  end;
+
+  SetLength(ImageBytes,0);
+  ImageBYtes:=nil;
+
+  PacketStream.Position:=0;
+
+  {Image:=TFileStream.Create(Get_CurDir+'\screenshot.jpeg',fmcreate);
+  Image.Size:=0;
+  Image.Position:=0;
+  for i:=1 to Length(RcvStream) do
+  begin
+    Application.ProcessMessages;
+    Image.Write(RcvStream[i],1);
   end;}
+
+  with MainForm.AdoQryCardRec do
+  begin
+    Close;
+    Open;
+    SQL.Clear;
+    SQL.Add('select * from t_CardRec where ID='+IntToStr(RecID)+' order by RecTime DESC,ID DESC');
+    Active:=true;
+    First;
+    Edit;
+    (FieldByName('Screenshot') as TBlobField).LoadFromStream(PacketStream);
+    Post;
+  end;
+
+  Image.Free;
+  RefreshRec(MainForm.AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+  except
+    Image.Free;
+  end;
 end;
 
 function TMainForm.ImageProcess(ImageString:string):Boolean;
@@ -7027,13 +7156,26 @@ var
   i:Integer;
   Image:TFileStream;
 begin
-  Image:=TFileStream.Create('C:\Users\Suwy\Desktop\L8(IP转换器发卡)\screenshot.jpg',fmcreate);
+  Image:=TFileStream.Create(Get_CurDir+'\screenshot.jpeg',fmcreate);
   Image.Size:=0;
   Image.Position:=0;
-  for i:=0 to Length(ImageString) do
+  for i:=1 to Length(ImageString) do
   begin
     Image.Write(ImageString[i],1);
   end;
+
+  with AdoQryCardRec do
+  begin
+    Open;
+    SQL.Clear;
+    SQL.Add('select * from t_CardRec order by RecTime DESC,ID DESC');
+    Active:=true;
+    First;
+    Edit;
+    (FieldByName('Screenshot') as TBlobField).LoadFromStream(Image);
+    Post;
+  end;
+
   Image.Free;
 end;
 
@@ -7762,6 +7904,24 @@ end;
 procedure TMainForm.tree_DelClick(Sender: TObject);
 begin
   //
+end;
+
+procedure TMainForm.DBGridCardRecDblClick(Sender: TObject);
+begin
+  if not AdoQryCardRec.FieldByName('Screenshot').IsNull then
+  begin
+    frm_screenshot:=Tfrm_screenshot.Create(nil);
+    frm_screenshot.ShowModal;
+  end;
+end;
+
+procedure TMainForm.AdoQryCardRecScreenshotGetText(Sender: TField;
+  var Text: String; DisplayText: Boolean);
+begin
+  if not AdoQryCardRec.FieldByName('Screenshot').IsNull then
+    Text:='双击显示'
+  else
+    Text:='';
 end;
 
 end.

@@ -19,7 +19,8 @@ uses
   u_phone in 'u_phone.pas' {f_phone},
   u_config in 'u_config.pas' {f_config},
   u_treedevice in 'u_treedevice.pas' {f_treedevice},
-  u_validtime in 'u_validtime.pas' {frm_validtime};
+  u_validtime in 'u_validtime.pas' {frm_validtime},
+  u_screenshot in 'u_screenshot.pas' {frm_screenshot};
 
 {$R *.res}
 
@@ -32,6 +33,7 @@ begin
     Application.Title := 'LEELEN L8';
     Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(Tfrm_validtime, frm_validtime);
+  Application.CreateForm(Tfrm_screenshot, frm_screenshot);
   frm_login.Close;
     CounInitialize;
     Application.Run;

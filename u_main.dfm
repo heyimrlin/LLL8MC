@@ -1,6 +1,6 @@
 object MainForm: TMainForm
-  Left = 561
-  Top = 230
+  Left = 823
+  Top = 248
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'L8'
@@ -25,7 +25,7 @@ object MainForm: TMainForm
     Top = 45
     Width = 872
     Height = 580
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -112,7 +112,6 @@ object MainForm: TMainForm
         Indent = 19
         ParentColor = True
         ParentFont = False
-        PopupMenu = pMenu_tree
         ReadOnly = True
         ShowButtons = False
         TabOrder = 1
@@ -126,7 +125,7 @@ object MainForm: TMainForm
         Top = 0
         Width = 625
         Height = 513
-        ActivePage = TabSheet24
+        ActivePage = TabSheet23
         TabOrder = 2
         object TabSheet23: TTabSheet
           Caption = #25151#20135
@@ -166,6 +165,7 @@ object MainForm: TMainForm
                 Expanded = False
                 FieldName = 'AddrType'
                 Title.Caption = #31867#22411
+                Title.Color = clWhite
                 Visible = False
               end
               item
@@ -180,6 +180,7 @@ object MainForm: TMainForm
                 Expanded = False
                 FieldName = 'AddrNO'
                 Title.Caption = #27004#26635#32534#30721
+                Title.Color = clWhite
                 Visible = False
               end
               item
@@ -538,7 +539,7 @@ object MainForm: TMainForm
         Top = -1
         Width = 871
         Height = 575
-        ActivePage = TabSheet17
+        ActivePage = TabSheet8
         Style = tsFlatButtons
         TabOrder = 0
         object TabSheet8: TTabSheet
@@ -3028,6 +3029,7 @@ object MainForm: TMainForm
         TitleFont.Height = -13
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
+        OnDblClick = DBGridCardRecDblClick
         Columns = <
           item
             Expanded = False
@@ -3040,7 +3042,7 @@ object MainForm: TMainForm
             FieldName = 'CardType'
             Title.Alignment = taCenter
             Title.Caption = #21345#31867#22411
-            Width = 180
+            Width = 150
             Visible = True
           end
           item
@@ -3049,7 +3051,7 @@ object MainForm: TMainForm
             FieldName = 'CardNO'
             Title.Alignment = taCenter
             Title.Caption = #21345#21495
-            Width = 153
+            Width = 150
             Visible = True
           end
           item
@@ -3058,7 +3060,7 @@ object MainForm: TMainForm
             FieldName = 'RecDev'
             Title.Alignment = taCenter
             Title.Caption = #21047#21345#28857
-            Width = 235
+            Width = 200
             Visible = True
           end
           item
@@ -3067,7 +3069,21 @@ object MainForm: TMainForm
             FieldName = 'RecTime'
             Title.Alignment = taCenter
             Title.Caption = #21047#21345#26102#38388
-            Width = 250
+            Width = 235
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Screenshot'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clHighlight
+            Font.Height = -13
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Title.Alignment = taCenter
+            Title.Caption = #25235#25293#22270#20687
+            Width = 75
             Visible = True
           end
           item
@@ -3884,6 +3900,7 @@ object MainForm: TMainForm
         Height = 182
         ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 5
+        Visible = False
       end
       object Memo3: TMemo
         Left = 389
@@ -6881,6 +6898,10 @@ object MainForm: TMainForm
     object AdoQryCardRecRecTime: TWideStringField
       FieldName = 'RecTime'
       Size = 255
+    end
+    object AdoQryCardRecScreenshot: TBlobField
+      FieldName = 'Screenshot'
+      OnGetText = AdoQryCardRecScreenshotGetText
     end
     object AdoQryCardRecMemo: TWideStringField
       FieldName = 'Memo'

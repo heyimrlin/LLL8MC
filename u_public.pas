@@ -63,6 +63,7 @@ var
 
   RcvString:string;
   RcvStream:string;
+  CurrentID:Integer;
   ConnectedIP:String;
   ConnectedPort:Integer;
   Connection:TIdTCPConnection;
