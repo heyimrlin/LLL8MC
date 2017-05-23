@@ -32,9 +32,7 @@ begin
     Application.Initialize;
     Application.Title := 'LEELEN L8';
     Application.CreateForm(TMainForm, MainForm);
-  Application.CreateForm(Tfrm_validtime, frm_validtime);
-  Application.CreateForm(Tfrm_screenshot, frm_screenshot);
-  frm_login.Close;
+    frm_login.Close;
     CounInitialize;
     Application.Run;
   end

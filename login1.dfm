@@ -1,6 +1,6 @@
 object frm_login: Tfrm_login
   Left = 1615
-  Top = 889
+  Top = 896
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = #35831#36755#20837#30331#24405#24080#21495#21644#23494#30721

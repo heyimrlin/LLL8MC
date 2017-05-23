@@ -58,10 +58,10 @@ end;
 
 procedure Tf_recqry.FormCreate(Sender: TObject);
 begin
-  Label1.Caption :=lang_dgCardRecColum1;
+  {Label1.Caption :=lang_dgCardRecColum1;
   Label2.Caption :=lang_dgCardRecColum2;
   Label5.Caption :=lang_dgCardRecColum3;
-  Label3.Caption :=lang_dgCardRecColum4;
+  Label3.Caption :=lang_dgCardRecColum4;}
   Label4.Caption :=lang_labTo;
   btn_ok.Caption :=lang_btnOK;
   btn_cancel.Caption:=lang_btnCancel;
@@ -70,7 +70,12 @@ begin
   cmbCardType.Items.Add(lang_cardTypeV+'/'+lang_cardType3);
   cmbCardType.Items.Add(lang_cardTypeX+'/'+lang_cardTypeC);
   cmbCardType.Items.Add(lang_cardTypeX+'/'+lang_cardType3);
+  cmbCardType.Items.Add('主机密码开门');
+  cmbCardType.Items.Add('主机呼叫');
   cmbCardType.ItemIndex:=0;
+
+  dt0.DateTime:=Now();
+  dt1.DateTime:=Now();
 end;
 
 end.

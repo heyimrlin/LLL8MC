@@ -1,6 +1,6 @@
 object MainForm: TMainForm
   Left = 823
-  Top = 248
+  Top = 258
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'L8'
@@ -125,7 +125,7 @@ object MainForm: TMainForm
         Top = 0
         Width = 625
         Height = 513
-        ActivePage = TabSheet23
+        ActivePage = TabSheet24
         TabOrder = 2
         object TabSheet23: TTabSheet
           Caption = #25151#20135
@@ -173,6 +173,11 @@ object MainForm: TMainForm
                 FieldName = 'AddrName'
                 Title.Alignment = taCenter
                 Title.Caption = #35774#22791#22320#22336
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 150
                 Visible = True
               end
@@ -196,6 +201,11 @@ object MainForm: TMainForm
                 FieldName = 'DevNO'
                 Title.Alignment = taCenter
                 Title.Caption = #35774#22791#21495#30721
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 150
                 Visible = True
               end
@@ -205,6 +215,11 @@ object MainForm: TMainForm
                 FieldName = 'Memo'
                 Title.Alignment = taCenter
                 Title.Caption = #22791#27880
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 275
                 Visible = True
               end>
@@ -243,6 +258,11 @@ object MainForm: TMainForm
                 FieldName = 'PersonName'
                 Title.Alignment = taCenter
                 Title.Caption = #25345#21345#20154
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 100
                 Visible = True
               end
@@ -252,6 +272,11 @@ object MainForm: TMainForm
                 FieldName = 'CardNO'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#21495
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 130
                 Visible = True
               end
@@ -261,6 +286,11 @@ object MainForm: TMainForm
                 FieldName = 'CardState'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#29366#24577
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 90
                 Visible = True
               end
@@ -270,6 +300,11 @@ object MainForm: TMainForm
                 FieldName = 'ValidTime'
                 Title.Alignment = taCenter
                 Title.Caption = #26377#25928#26102#38388
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 150
                 Visible = True
               end
@@ -279,6 +314,11 @@ object MainForm: TMainForm
                 FieldName = 'CardMemo'
                 Title.Alignment = taCenter
                 Title.Caption = #22791#27880
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 70
                 Visible = True
               end
@@ -414,6 +454,11 @@ object MainForm: TMainForm
             FieldName = 'DevType'
             Title.Alignment = taCenter
             Title.Caption = #35774#22791#31867#22411
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 120
             Visible = True
           end
@@ -423,6 +468,11 @@ object MainForm: TMainForm
             FieldName = 'DevNO'
             Title.Alignment = taCenter
             Title.Caption = #35774#22791#21495#30721
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 130
             Visible = True
           end
@@ -431,6 +481,11 @@ object MainForm: TMainForm
             FieldName = 'AddrName'
             Title.Alignment = taCenter
             Title.Caption = #35774#22791#22320#22336
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 235
             Visible = True
           end
@@ -445,6 +500,11 @@ object MainForm: TMainForm
             Expanded = False
             FieldName = 'IP'
             Title.Alignment = taCenter
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 120
             Visible = True
           end
@@ -454,6 +514,11 @@ object MainForm: TMainForm
             FieldName = 'Memo'
             Title.Alignment = taCenter
             Title.Caption = #22791#27880
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 210
             Visible = True
           end>
@@ -1630,7 +1695,7 @@ object MainForm: TMainForm
           object Label12: TLabel
             Left = 564
             Top = 462
-            Width = 24
+            Width = 37
             Height = 16
             Caption = #20998#26426
             Visible = False
@@ -1745,9 +1810,15 @@ object MainForm: TMainForm
             Width = 543
             Height = 480
             DataSource = DSReadCards
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
             Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
             ParentColor = True
+            ParentFont = False
             ReadOnly = True
             TabOrder = 6
             TitleFont.Charset = DEFAULT_CHARSET
@@ -1767,6 +1838,11 @@ object MainForm: TMainForm
                 FieldName = 'CardType'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#31867#22411
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 135
                 Visible = True
               end
@@ -1776,6 +1852,11 @@ object MainForm: TMainForm
                 FieldName = 'CardNO'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#21495
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 135
                 Visible = True
               end
@@ -1793,6 +1874,11 @@ object MainForm: TMainForm
                 FieldName = 'unitMac'
                 Title.Alignment = taCenter
                 Title.Caption = #20027#26426
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 117
                 Visible = True
               end
@@ -1802,6 +1888,11 @@ object MainForm: TMainForm
                 FieldName = 'userMac'
                 Title.Alignment = taCenter
                 Title.Caption = #20998#26426
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 117
                 Visible = True
               end
@@ -2098,8 +2189,14 @@ object MainForm: TMainForm
             Height = 453
             Color = clWhite
             DataSource = DSCard
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
             Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+            ParentFont = False
             TabOrder = 2
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
@@ -2118,6 +2215,11 @@ object MainForm: TMainForm
                 FieldName = 'PersonName'
                 Title.Alignment = taCenter
                 Title.Caption = #25345#21345#20154
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 80
                 Visible = True
               end
@@ -2127,6 +2229,11 @@ object MainForm: TMainForm
                 FieldName = 'CardType'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#31867#22411
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 80
                 Visible = True
               end
@@ -2136,6 +2243,11 @@ object MainForm: TMainForm
                 FieldName = 'CardNO'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#21495
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 120
                 Visible = True
               end
@@ -2145,6 +2257,11 @@ object MainForm: TMainForm
                 FieldName = 'CardState'
                 Title.Alignment = taCenter
                 Title.Caption = #21345#29366#24577
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 65
                 Visible = True
               end
@@ -2162,6 +2279,11 @@ object MainForm: TMainForm
                 FieldName = 'unitMac'
                 Title.Alignment = taCenter
                 Title.Caption = #20027#26426
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 90
                 Visible = True
               end
@@ -2171,6 +2293,11 @@ object MainForm: TMainForm
                 FieldName = 'userMac'
                 Title.Alignment = taCenter
                 Title.Caption = #20998#26426
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 90
                 Visible = True
               end
@@ -2180,6 +2307,11 @@ object MainForm: TMainForm
                 FieldName = 'WallNO'
                 Title.Alignment = taCenter
                 Title.Caption = #22260#22681#26426
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 110
                 Visible = True
               end
@@ -2203,6 +2335,11 @@ object MainForm: TMainForm
                 FieldName = 'ValidTime'
                 Title.Alignment = taCenter
                 Title.Caption = #26377#25928#26102#38388
+                Title.Font.Charset = GB2312_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -16
+                Title.Font.Name = #24494#36719#38597#40657
+                Title.Font.Style = []
                 Width = 175
                 Visible = True
               end>
@@ -2889,9 +3026,15 @@ object MainForm: TMainForm
         Height = 506
         Hint = #21452#20987#25805#20316#65292#21487#20197#25913#21464#22788#29702#24773#20917#65281
         DataSource = DSAlarm
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         ParentColor = True
+        ParentFont = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -2911,8 +3054,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AlarmType'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #25253#35686#31867#22411
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 115
             Visible = True
           end
@@ -2920,8 +3073,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AddrName'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #35774#22791#22320#22336
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 145
             Visible = True
           end
@@ -2929,8 +3092,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AlarmStatus'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #29366#24577
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 115
             Visible = True
           end
@@ -2938,8 +3111,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AlarmTime'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #25253#35686#26102#38388
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 155
             Visible = True
           end
@@ -2947,8 +3130,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AlarmText'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #25253#35686#20869#23481
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 165
             Visible = True
           end
@@ -2956,8 +3149,18 @@ object MainForm: TMainForm
             Alignment = taCenter
             Expanded = False
             FieldName = 'AlarmSolved'
+            Font.Charset = GB2312_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -16
+            Font.Name = #24494#36719#38597#40657
+            Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #22788#29702#24773#20917
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 120
             Visible = True
           end
@@ -2979,6 +3182,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #26597#35810
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
           OnClick = btn_AlarmQueryClick
         end
@@ -2988,6 +3197,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #21047#26032
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 1
           OnClick = btn_AlarmRefreshClick
         end
@@ -2997,6 +3212,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #21024#38500
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 2
           OnClick = btn_AlarmDelClick
         end
@@ -3006,13 +3227,19 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #28165#38500
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 3
           OnClick = btn_AlarmClearClick
         end
       end
     end
     object TabSheet5: TTabSheet
-      Caption = #21047#21345#35760#24405
+      Caption = #38376#31105#35760#24405
       ImageIndex = 4
       object DBGridCardRec: TDBGrid
         Left = 2
@@ -3020,9 +3247,15 @@ object MainForm: TMainForm
         Width = 855
         Height = 506
         DataSource = DSCardRec
+        Font.Charset = GB2312_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = #24494#36719#38597#40657
+        Font.Style = []
         ImeName = #20013#25991' ('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         ParentColor = True
+        ParentFont = False
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -3041,7 +3274,12 @@ object MainForm: TMainForm
             Expanded = False
             FieldName = 'CardType'
             Title.Alignment = taCenter
-            Title.Caption = #21345#31867#22411
+            Title.Caption = #38376#31105#31867#22411
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 150
             Visible = True
           end
@@ -3050,7 +3288,12 @@ object MainForm: TMainForm
             Expanded = False
             FieldName = 'CardNO'
             Title.Alignment = taCenter
-            Title.Caption = #21345#21495
+            Title.Caption = #21345#21495'/'#25151#21495
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 150
             Visible = True
           end
@@ -3059,7 +3302,12 @@ object MainForm: TMainForm
             Expanded = False
             FieldName = 'RecDev'
             Title.Alignment = taCenter
-            Title.Caption = #21047#21345#28857
+            Title.Caption = #38376#31105#28857
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 200
             Visible = True
           end
@@ -3068,7 +3316,12 @@ object MainForm: TMainForm
             Expanded = False
             FieldName = 'RecTime'
             Title.Alignment = taCenter
-            Title.Caption = #21047#21345#26102#38388
+            Title.Caption = #38376#31105#35760#24405#26102#38388
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 235
             Visible = True
           end
@@ -3083,6 +3336,11 @@ object MainForm: TMainForm
             Font.Style = []
             Title.Alignment = taCenter
             Title.Caption = #25235#25293#22270#20687
+            Title.Font.Charset = GB2312_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -16
+            Title.Font.Name = #24494#36719#38597#40657
+            Title.Font.Style = []
             Width = 75
             Visible = True
           end
@@ -3105,6 +3363,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #26597#35810
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
           OnClick = btn_CardRecQueryClick
         end
@@ -3114,6 +3378,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #21047#26032
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 1
           OnClick = btn_CardRecRefreshClick
         end
@@ -3123,6 +3393,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #21024#38500
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 2
           OnClick = btn_CardRecDelClick
         end
@@ -3132,6 +3408,12 @@ object MainForm: TMainForm
           Width = 75
           Height = 25
           Caption = #28165#38500
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
+          ParentFont = False
           TabOrder = 3
           OnClick = btn_CardRecClearClick
         end
@@ -3165,9 +3447,15 @@ object MainForm: TMainForm
           Height = 201
           Hint = #28857#20987#40736#26631#21491#38190#36827#34892#31649#29702#65281
           DataSource = DSUser
+          Font.Charset = GB2312_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = #24494#36719#38597#40657
+          Font.Style = []
           ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
           Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
           ParentColor = True
+          ParentFont = False
           PopupMenu = pMenu_user
           TabOrder = 0
           TitleFont.Charset = DEFAULT_CHARSET
@@ -3187,6 +3475,11 @@ object MainForm: TMainForm
               FieldName = 'UserName'
               Title.Alignment = taCenter
               Title.Caption = #36134#21495#21517
+              Title.Font.Charset = GB2312_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = #24494#36719#38597#40657
+              Title.Font.Style = []
               Width = 175
               Visible = True
             end
@@ -3196,6 +3489,11 @@ object MainForm: TMainForm
               FieldName = 'UserPermission'
               Title.Alignment = taCenter
               Title.Caption = #36134#21495#26435#38480
+              Title.Font.Charset = GB2312_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = #24494#36719#38597#40657
+              Title.Font.Style = []
               Width = 200
               Visible = True
             end
@@ -3205,6 +3503,11 @@ object MainForm: TMainForm
               FieldName = 'UserPassword'
               Title.Alignment = taCenter
               Title.Caption = #36134#21495#23494#30721
+              Title.Font.Charset = GB2312_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -16
+              Title.Font.Name = #24494#36719#38597#40657
+              Title.Font.Style = []
               Width = 185
               Visible = True
             end>
@@ -3900,7 +4203,6 @@ object MainForm: TMainForm
         Height = 182
         ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
         TabOrder = 5
-        Visible = False
       end
       object Memo3: TMemo
         Left = 389
@@ -5197,7 +5499,7 @@ object MainForm: TMainForm
       Width = 169
       Height = 40
       GroupIndex = 1
-      Caption = #21047#21345#35760#24405
+      Caption = #38376#31105#35760#24405
       Flat = True
       Glyph.Data = {
         360C0000424D360C000000000000360000002800000020000000200000000100

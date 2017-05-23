@@ -63,7 +63,13 @@ begin
   btn_cancel.Caption:=lang_btnCancel;
   cmbAlarmType.Items.Clear;
   cmbAlarmType.Items.Add(lang_alarmType0);
+  cmbAlarmType.Items.Add('防区触发报警');
+  cmbAlarmType.Items.Add('胁迫开门报警');
+  cmbAlarmType.Items.Add('开门超时报警');
   cmbAlarmType.ItemIndex:=0;
+
+  dt0.DateTime:=Now();
+  dt1.DateTime:=Now();
 end;
 
 end.

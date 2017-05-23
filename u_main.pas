@@ -878,11 +878,14 @@ type
 
     procedure GetRegCards(devStr: string); //4408 读取注册卡
     procedure GetCardRec(devStr: string); //4508 读取刷卡记录
+    procedure GetPwdOpenDoor(devStr:string); //主机密码开锁
+    procedure GetUnitCallManagement(devStr:string); //主机呼叫管理机
     procedure GetDevReset(devStr: string); //主机/分机上电
     procedure GetAlarmRec(devStr:string); //读取报警记录
     procedure GetSetCancelAlarm(devStr:string); //分机布、撤防报警
     procedure GetSectorAlarm(devStr:string); //分机防区触发报警
     procedure GetStressOpenAlarm(devStr:string); //用户胁迫开门报警
+    procedure GetOpenDoorOverTime(devStr:string); //主机开门超时报警
 
     procedure SendCommand1(cmdStr:string);
     procedure SendCommand(CmdStr: String);
@@ -1159,7 +1162,7 @@ begin
   spBtn_CardSender.Caption:=lang_menu36;
   spBtn_WriteCard.Caption :=lang_menu37;
   spBtn_alarm.Caption :=lang_menu4;
-  spBtn_credit.Caption:=lang_menu5;
+  //spBtn_credit.Caption:=lang_menu5;
   spBtn_set.Caption   :=lang_menu6;
 
   addr_Add.Caption  :=lang_pMenuAddrAdd;
@@ -1209,10 +1212,10 @@ begin
   DBGridAlarmRec.Columns[5].Title.Caption:=lang_dgAlarmColum5;
   DBGridAlarmRec.Columns[6].Title.Caption:=lang_dgAlarmColum6;
 
-  DBGridCardRec.Columns[1].Title.Caption:=lang_dgCardRecColum1;
+  {DBGridCardRec.Columns[1].Title.Caption:=lang_dgCardRecColum1;
   DBGridCardRec.Columns[2].Title.Caption:=lang_dgCardRecColum2;
   DBGridCardRec.Columns[3].Title.Caption:=lang_dgCardRecColum3;
-  DBGridCardRec.Columns[4].Title.Caption:=lang_dgCardRecColum4;
+  DBGridCardRec.Columns[4].Title.Caption:=lang_dgCardRecColum4;}
 
   DBGridUser.Columns[1].Title.Caption:=lang_dgUserColum1;
   DBGridUser.Columns[2].Title.Caption:=lang_dgUserColum2;
@@ -3475,13 +3478,17 @@ var
   cStr,cType:string;
 begin
 
-    {2A 00 08 楼栋开门超时报警
+    {R  44 08 读取注册卡
+     R  45 08 刷卡记录
+     R  47 0C 主机密码开锁
+     R  01 0B 主机呼叫管理机
+     R  2A 08 主机开门超时报警
      40 00 08 家居多路探头报警
      41 00 08 分机求助报警
-     42 00 08 主机分机上电
-     43 00 08 布、撤防报警
-     R  44 08 读取注册卡
-     R  45 08 刷卡记录}
+     42 00 08 主机、分机上电
+     43 00 08 分机布、撤防报警
+     4C 00 08 用户胁迫开门报警
+     }
 
   if cmdBusy = true then Exit;
   cStr := mmRcvCmd.Lines.Strings[0];
@@ -3499,14 +3506,32 @@ begin
   begin
     cmdBusy := true;
     isReading := false;
-    GetCardRec(cStr);     //4508 读取刷卡记录
+    GetCardRec(cStr);     //4508 刷卡记录
+  end
+  else if cType = '010B' then
+  begin
+    cmdBusy := true;
+    isReading := false;
+    GetUnitCallManagement(cStr);  //010B 主机呼叫
+  end
+  else if cType = '2A08' then
+  begin
+    cmdBusy := true;
+    isReading := false;
+    GetOpenDoorOverTime(cStr);//主机开门超时报警
+  end
+  else if cType = '470C' then
+  begin
+    cmdBusy := true;
+    isReading := false;
+    GetPwdOpenDoor(cStr);   //470C 主机密码开锁
   end
   else if cType = '0008' then
   begin
     cmdBusy := true;
     isReading := false;
     if MidStr(cStr,21,2)='40' then
-      GetSectorAlarm(cStr)  // 400008 分机防区触发报警
+      GetSectorAlarm(cStr)  // 400008 家居多路探头报警
     else if MidStr(cStr,21,2)='41' then
       GetAlarmRec(cStr)   //410008 分机求助报警
     else if MidStr(cStr,21,2)='42' then
@@ -3691,7 +3716,79 @@ begin
   end;
 end;
 
-procedure TMainForm.GetDevReset(devStr: string); //主机/分机上电
+procedure TMainForm.GetPwdOpenDoor(devStr:string);  //主机密码开锁
+var
+  unitStr,userStr,recDev,roomDev:string;
+  cardType:Integer;
+begin
+  try
+    cardType:=4;
+    unitStr := MidStr(devStr,3,4);
+    userStr := MidStr(devStr,7,6);
+    userStr := GetUserNO4(userStr);
+    recDev  := unitStr+'-'+userStr;
+    unitStr := MidStr(devStr,13,4);
+    userStr := MidStr(devStr,17,6);
+    userStr := GetUserNO4(userStr);
+    roomDev := unitStr+'-'+userStr;
+
+    RefreshRec(AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+    AdoQryCardRec.Append;
+    AdoQryCardRec.FieldByName('CardNO').AsString   := roomDev;
+    AdoQryCardRec.FieldByName('CardType').AsInteger:= cardType;
+    AdoQryCardRec.FieldByName('RecDev').AsString   := recDev;
+    if ComType=0 then
+      AdoQryCardRec.FieldByName('RecTime').AsString  := GetCmdTime(MidStr(devStr,27,12))
+    else if ComType=1 then
+      AdoQryCardRec.FieldByName('RecTime').AsString  := FormatDateTime('YYYY-MM-DD hh:mm',Now());
+    AdoQryCardRec.Post;
+    RefreshRec(AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+
+    AdoQryCardRec.First;
+    CurrentID:=AdoQryCardRec.FieldByName('ID').AsInteger;
+  finally
+    cmdBusy := false;
+    mmRcvCmd.Lines.Delete(0);
+  end;
+end;
+
+procedure TMainForm.GetUnitCallManagement(devStr:string);  //主机呼叫管理机
+var
+  cardType:Integer;
+  unitStr,userStr,recDev,roomDev:string;
+begin
+  try
+    cardType:=5;
+    unitStr := MidStr(devStr,3,4);
+    userStr := MidStr(devStr,7,6);
+    userStr := GetUserNO4(userStr);
+    recDev  := unitStr+'-'+userStr;
+    unitStr := MidStr(devStr,13,4);
+    userStr := MidStr(devStr,17,6);
+    userStr := GetUserNO4(userStr);
+    roomDev := unitStr+'-'+userStr;
+
+    RefreshRec(AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+    AdoQryCardRec.Append;
+    AdoQryCardRec.FieldByName('CardNO').AsString   := roomDev;
+    AdoQryCardRec.FieldByName('CardType').AsInteger:= cardType;
+    AdoQryCardRec.FieldByName('RecDev').AsString   := recDev;
+    if ComType=0 then
+      AdoQryCardRec.FieldByName('RecTime').AsString  := GetCmdTime(MidStr(devStr,27,12))
+    else if ComType=1 then
+      AdoQryCardRec.FieldByName('RecTime').AsString  := FormatDateTime('YYYY-MM-DD hh:mm',Now());
+    AdoQryCardRec.Post;
+    RefreshRec(AdoQryCardRec,'select * from t_CardRec order by RecTime DESC,ID DESC');
+
+    AdoQryCardRec.First;
+    CurrentID:=AdoQryCardRec.FieldByName('ID').AsInteger;
+  finally
+    cmdBusy := false;
+    mmRcvCmd.Lines.Delete(0);
+  end;
+end;
+
+procedure TMainForm.GetDevReset(devStr: string); //主机、分机上电
 var
   S5,S3:string;
   unitStr,userStr,coreStr:string;//单元主机、用户分机、中心管理机
@@ -3858,16 +3955,80 @@ begin
     RefreshRec(AdoQryAlarm,'select * from t_alarm order by AlarmTime DESC,ID DESC');
   finally
     cmdBusy:=false;
-    Memo5.Lines.Add(devStr);
     mmRcvCmd.Lines.Delete(0);
   end;
 end;
 
 procedure TMainForm.GetStressOpenAlarm(devStr:string); //用户胁迫开门报警
+var
+  unitStr,userStr:string;
+  alarmAddr,alarmTime,alarmText:string;
+  alarmType,alarmState,alarmHandled:Integer;
 begin
-  cmdBusy:=false;
-  Memo5.Lines.Add(devStr);
-  mmRcvCmd.Lines.Delete(0);
+  try
+    unitStr := MidStr(devStr,3,4);
+    userStr := MidStr(devStr,7,6);
+    userStr := GetUserNO4(userStr);
+    alarmType:=2;
+    alarmAddr:=unitStr+'-'+userStr;
+    alarmState:=0;
+    if ComType=0 then
+      alarmTime:=GetCmdTime(MidStr(devStr,27,12))
+    else if ComType=1 then
+      alarmTime:=FormatDateTime('YYYY-MM-DD hh:mm',Now());
+    alarmText:='';
+    alarmHandled:=0;
+
+    ExecSQL('insert into t_alarm(AddrName,AlarmType,AlarmStatus,AlarmTime,AlarmText,AlarmSolved) values('+QuotedStr(alarmAddr)+','+IntToStr(alarmType)+','+IntToStr(alarmState)+','+QuotedStr(alarmTime)+','+QuotedStr(alarmText)+','+IntToStr(alarmHandled)+')');
+
+    RefreshRec(AdoQryAlarm,'select * from t_alarm order by AlarmTime DESC,ID DESC');
+  finally
+    cmdBusy:=false;
+    mmRcvCmd.Lines.Delete(0);
+  end;
+end;
+
+procedure TMainForm.GetOpenDoorOverTime(devStr:string); //主机开门超时报警
+var
+  unitStr,userStr:string;
+  alarmAddr,alarmTime,alarmText:string;
+  alarmType,alarmState,alarmHandled:Integer;
+begin
+  try
+    unitStr := MidStr(devStr,3,4);
+    userStr := MidStr(devStr,7,6);
+    userStr := GetUserNO4(userStr);
+    alarmType:=3;
+    alarmAddr:=unitStr+'-'+userStr;
+    alarmState:=0;
+    if ComType=0 then
+      alarmTime:=GetCmdTime(MidStr(devStr,27,12))
+    else if ComType=1 then
+      alarmTime:=FormatDateTime('YYYY-MM-DD hh:mm',Now());
+
+    alarmText:=MidStr(devStr,21,2);
+    if alarmText='00' then
+      alarmText:='强制开门超时'
+    else if alarmText='01' then
+      alarmText:='对讲开门超时'
+    else if alarmText='02' then
+      alarmText:='密码开门超时'
+    else if alarmText='03' then
+      alarmText:='刷卡开门超时'
+    else if alarmText='04' then
+      alarmText:='按钮开门超时'
+    else
+      alarmText:='';
+
+    alarmHandled:=0;
+
+    ExecSQL('insert into t_alarm(AddrName,AlarmType,AlarmStatus,AlarmTime,AlarmText,AlarmSolved) values('+QuotedStr(alarmAddr)+','+IntToStr(alarmType)+','+IntToStr(alarmState)+','+QuotedStr(alarmTime)+','+QuotedStr(alarmText)+','+IntToStr(alarmHandled)+')');
+
+    RefreshRec(AdoQryAlarm,'select * from t_alarm order by AlarmTime DESC,ID DESC');
+  finally
+    cmdBusy:=false;
+    mmRcvCmd.Lines.Delete(0);
+  end;
 end;
 
 procedure TMainForm.GetSetCancelAlarm(devStr:string); // 分机布撤防状态
@@ -3914,6 +4075,10 @@ begin
     Text:=lang_alarmType0
   else if Sender.Value=1 then
     Text:=lang_alarmType4
+  else if Sender.Value=2 then
+    Text:='胁迫开门报警'
+  else if Sender.Value=3 then
+    Text:='开门超时报警'
   else
     Text:='';
 end;
@@ -5217,6 +5382,8 @@ begin
     1:Text:=lang_cardTypeV+'/'+lang_cardType3;
     2:Text:=lang_cardTypeX+'/'+lang_cardTypeC;
     3:Text:=lang_cardTypeX+'/'+lang_cardType3;
+    4:Text:='主机密码开门';
+    5:Text:='主机呼叫';
     else
       Text:=lang_cardTypeU;
     end;
@@ -7001,6 +7168,8 @@ begin
       if Length(RcvString)=LenInt then
       begin
         //Timer3.Enabled:=false;
+        CmdStr:=MidStr(RcvString,39,26);
+        mmRcvCmd.Lines.Append(CmdStr);
 
         Confirm:=$01;
         

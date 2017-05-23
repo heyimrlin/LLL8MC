@@ -165,6 +165,8 @@ begin
     AdoConUser.ConnectionString:='Provider=MSDASQL.1;Password='+svr_psw+';Persist Security Info=True;User ID='+svr_user+';Data Source=LeeLenL8;Initial Catalog=LeeLenL8';
   end;}
 
+  isSend:=true;
+
   if AdoConUser.Connected then AdoConUser.Close;
 
   //-----Á´½ÓÊý¾Ý¿â-----

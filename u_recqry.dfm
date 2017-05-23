@@ -67,7 +67,7 @@ object f_recqry: Tf_recqry
       Height = 21
       Alignment = taRightJustify
       AutoSize = False
-      Caption = #21345#31867#22411
+      Caption = #38376#31105#31867#22411
     end
     object Label2: TLabel
       Left = 16
@@ -75,15 +75,15 @@ object f_recqry: Tf_recqry
       Width = 121
       Height = 21
       AutoSize = False
-      Caption = #21345#21495
+      Caption = #21345#21495'/'#25151#21495
     end
     object Label3: TLabel
       Left = 16
       Top = 130
-      Width = 121
+      Width = 129
       Height = 21
       AutoSize = False
-      Caption = #21047#21345#26102#38388
+      Caption = #38376#31105#35760#24405#26102#38388
     end
     object Label4: TLabel
       Left = 338
@@ -99,7 +99,7 @@ object f_recqry: Tf_recqry
       Width = 132
       Height = 21
       AutoSize = False
-      Caption = #21047#21345#28857
+      Caption = #38376#31105#28857
     end
     object cmbCardType: TComboBox
       Left = 383
@@ -128,8 +128,8 @@ object f_recqry: Tf_recqry
       Top = 125
       Width = 165
       Height = 29
-      Date = 42720.365955717590000000
-      Time = 42720.365955717590000000
+      Date = 0.365955717592441900
+      Time = 0.365955717592441900
       ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 2
     end
@@ -138,8 +138,8 @@ object f_recqry: Tf_recqry
       Top = 125
       Width = 165
       Height = 29
-      Date = 42720.365955717590000000
-      Time = 42720.365955717590000000
+      Date = 0.365955717592441900
+      Time = 0.365955717592441900
       ImeName = #20013#25991'('#31616#20307') - '#25628#29399#25340#38899#36755#20837#27861
       TabOrder = 3
     end
